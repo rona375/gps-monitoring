@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS gps_monitoring;
+
+USE gps_monitoring;
+
+CREATE TABLE IF NOT EXISTS gps_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    latitude DECIMAL(10,7) NOT NULL,
+    longitude DECIMAL(10,7) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
