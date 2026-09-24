@@ -1,5 +1,13 @@
 // ========================================
-// KOORDINAT DUMMY
+// API DATABASE
+// ========================================
+
+const apiUrl =
+    'https://gestate-purr-aorta.ngrok-free.dev/gps-monitoring/api/latest.php';
+
+
+// ========================================
+// KOORDINAT AWAL
 // ========================================
 
 let latitude = -8.157817;
@@ -39,42 +47,43 @@ let marker = L.marker([
 
 
 // ========================================
-// MENAMPILKAN DATA DUMMY
+// JUMLAH TITIK
 // ========================================
 
-document.getElementById('latitude')
-    .textContent = latitude.toFixed(7);
-
-document.getElementById('longitude')
-    .textContent = longitude.toFixed(7);
-
-document.getElementById('status')
-    .textContent = 'GPS Connected';
+let pointCount = 0;
 
 
 // ========================================
-// UPDATE TERAKHIR
-// SEMENTARA DUMMY
+// MENGAMBIL DATA GPS
 // ========================================
-
-document.getElementById('last-update')
-    .textContent = 'Data Dummy';
-
-
-// ========================================
-// REAL-TIME DATABASE
-// AKAN DIGUNAKAN NANTI
-// ========================================
-
-/*
 
 function ambilDataGPS() {
 
-    fetch('api/latest.php')
+    fetch(apiUrl)
 
-        .then(response => response.json())
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    'Server mengembalikan error: ' +
+                    response.status
+                );
+
+            }
+
+            return response.json();
+
+        })
 
         .then(result => {
+
+            console.log('Data dari server:', result);
+
+
+            // ========================================
+            // CEK DATA
+            // ========================================
 
             if (
                 result.status === 'success' &&
@@ -82,6 +91,11 @@ function ambilDataGPS() {
             ) {
 
                 tampilkanData(result.data);
+
+            } else {
+
+                document.getElementById('status')
+                    .textContent = 'Belum ada data';
 
             }
 
@@ -102,16 +116,95 @@ function ambilDataGPS() {
 }
 
 
-// Update setiap 5 detik
+// ========================================
+// MENAMPILKAN DATA GPS
+// ========================================
+
+function tampilkanData(data) {
+
+    // ========================================
+    // MENGAMBIL KOORDINAT
+    // ========================================
+
+    latitude = parseFloat(data.latitude);
+
+    longitude = parseFloat(data.longitude);
+
+
+    // ========================================
+    // UPDATE MARKER
+    // ========================================
+
+    marker.setLatLng([
+        latitude,
+        longitude
+    ]);
+
+
+    // ========================================
+    // MEMINDAHKAN POSISI PETA
+    // ========================================
+
+    map.setView([
+        latitude,
+        longitude
+    ]);
+
+
+    // ========================================
+    // MENAMPILKAN KOORDINAT
+    // ========================================
+
+    document.getElementById('latitude')
+        .textContent = latitude.toFixed(7);
+
+    document.getElementById('longitude')
+        .textContent = longitude.toFixed(7);
+
+
+    // ========================================
+    // STATUS
+    // ========================================
+
+    document.getElementById('status')
+        .textContent = 'GPS Connected';
+
+
+    // ========================================
+    // WAKTU UPDATE
+    // ========================================
+
+    document.getElementById('last-update')
+        .textContent = data.created_at;
+
+
+    // ========================================
+    // JUMLAH TITIK
+    // ========================================
+
+    pointCount++;
+
+    document.getElementById('point-count')
+        .textContent = pointCount;
+
+}
+
+
+// ========================================
+// AMBIL DATA PERTAMA KALI
+// ========================================
 
 ambilDataGPS();
+
+
+// ========================================
+// UPDATE SETIAP 5 DETIK
+// ========================================
 
 setInterval(
     ambilDataGPS,
     5000
 );
-
-*/
 
 
 // ========================================
@@ -122,6 +215,8 @@ document.getElementById('clear-history')
     .addEventListener(
         'click',
         function () {
+
+            pointCount = 0;
 
             document.getElementById('point-count')
                 .textContent = '0';
