@@ -10,56 +10,267 @@
 
     <title>GPS Monitoring</title>
 
+    <!-- Leaflet CSS -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     >
 
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 
+
 <body>
 
+    <!-- ========================================
+         HEADER
+    ========================================= -->
+
     <header>
-        <h1>GPS Monitoring</h1>
-        <p>Monitoring posisi GPS</p>
+
+        <div class="header-left">
+
+            <div class="logo-icon">
+                📍
+            </div>
+
+            <div>
+                <h1>GPS Monitoring</h1>
+                <p>Real-time Location Tracking</p>
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="live-status">
+                <span class="status-dot"></span>
+                LIVE
+            </div>
+
+            <div class="device-id">
+                GPS001
+            </div>
+
+        </div>
+
     </header>
+
+
+    <!-- ========================================
+         MAIN
+    ========================================= -->
 
     <main>
 
-        <section class="gps-info">
 
-            <div class="card">
-                <h3>Latitude</h3>
-                <p id="latitude">-</p>
+        <!-- ====================================
+             DASHBOARD
+        ===================================== -->
+
+        <section class="dashboard">
+
+
+            <!-- ==================================
+                 MAP
+            =================================== -->
+
+            <div class="map-card">
+
+                <div class="map-header">
+
+                    <div>
+                        <h2>Lokasi Perangkat</h2>
+                        <p>Posisi GPS saat ini</p>
+                    </div>
+
+                    <div class="map-badge">
+                        Real-time
+                    </div>
+
+                </div>
+
+
+                <div id="map"></div>
+
             </div>
 
-            <div class="card">
-                <h3>Longitude</h3>
-                <p id="longitude">-</p>
-            </div>
 
-            <div class="card">
-                <h3>Status</h3>
-                <p id="status">Menunggu data...</p>
+            <!-- ==================================
+                 SIDEBAR
+            =================================== -->
+
+            <div class="sidebar">
+
+
+                <!-- STATUS PERANGKAT -->
+
+                <div class="info-card">
+
+                    <div class="card-title">
+
+                        <div>
+                            <h3>Status Perangkat</h3>
+                            <p>Kondisi perangkat GPS</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="device-status">
+
+                        <span class="status-dot large"></span>
+
+                        <div>
+
+                            <strong id="status">
+                                Menunggu data...
+                            </strong>
+
+                            <span>
+                                Device GPS001
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOKASI TERKINI -->
+
+                <div class="info-card">
+
+                    <div class="card-title">
+
+                        <div>
+                            <h3>Lokasi Terkini</h3>
+                            <p>Koordinat perangkat</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="coordinate">
+
+                        <span>Latitude</span>
+
+                        <strong id="latitude">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="coordinate">
+
+                        <span>Longitude</span>
+
+                        <strong id="longitude">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="coordinate">
+
+                        <span>Update Terakhir</span>
+
+                        <strong id="last-update">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </section>
 
-        <section class="map-section">
 
-            <h2>Lokasi GPS</h2>
+        <!-- ====================================
+             JEJAK PERJALANAN
+        ===================================== -->
 
-            <div id="map"></div>
+        <section class="history-card">
+
+            <div class="history-info">
+
+                <div class="history-icon">
+                    ◉
+                </div>
+
+                <div>
+
+                    <h2>Jejak Perjalanan</h2>
+
+                    <p>
+                        Riwayat titik lokasi yang terekam
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="history-stat">
+
+                <strong id="point-count">
+                    1
+                </strong>
+
+                <span>
+                    Titik Terekam
+                </span>
+
+            </div>
+
+
+            <button
+                id="clear-history"
+                class="clear-button"
+                type="button"
+            >
+                Hapus Jejak
+            </button>
 
         </section>
+
 
     </main>
+
+
+    <!-- Leaflet JS -->
 
     <script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
     </script>
+
+
+    <!-- App JS -->
 
     <script src="js/app.js"></script>
 
