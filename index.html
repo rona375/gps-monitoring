@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>GPS Monitoring</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <header>
+        <h1>GPS Monitoring</h1>
+        <p>Monitoring posisi GPS</p>
+    </header>
+
+    <main>
+
+        <section class="gps-info">
+
+            <div class="card">
+                <h3>Latitude</h3>
+                <p id="latitude">-</p>
+            </div>
+
+            <div class="card">
+                <h3>Longitude</h3>
+                <p id="longitude">-</p>
+            </div>
+
+            <div class="card">
+                <h3>Status</h3>
+                <p id="status">Menunggu data...</p>
+            </div>
+
+        </section>
+
+        <section class="map-section">
+
+            <h2>Lokasi GPS</h2>
+
+            <div id="map"></div>
+
+        </section>
+
+    </main>
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
